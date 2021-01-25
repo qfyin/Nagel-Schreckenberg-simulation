@@ -19,11 +19,12 @@ class SimulationManager:
             self.makeStep()
 
     def makeSteps(self, steps):
-        for x in range(steps): self.makeStep()
+        for x in range(steps):
+            self.makeStep()
 
     def makeStep(self):
         self.trafficGenerator.generate(self.road)
-        self.road.update();
+        self.road.update()
         self.stepsMade += 1
 
     def processKey(self, key):
@@ -39,14 +40,22 @@ class SimulationManager:
     def isStopped(self):
         return self.timeFactor == 0
 
-    def __exit(self): self.running = False
+    def __exit(self):
+        self.running = False
+    
     def __pauseSwitch(self):
         self.timeFactor, self.prevTimeFactor = self.prevTimeFactor, self.timeFactor
-    def __speedUp(self): self.timeFactor = min(8.0, self.timeFactor*2)
-    def __speedDown(self): self.timeFactor = max(1/8, self.timeFactor/2)
+    
+    def __speedUp(self):
+        self.timeFactor = min(8.0, self.timeFactor*2)
+    
+    def __speedDown(self):
+        self.timeFactor = max(1/8, self.timeFactor/2)
+    
     def __oneStepForward(self):
         if self.isStopped(): self.makeStep()
         else: print("Can't make step: simulation is running")
+    
     def __manyStepsForward(self, steps):
         def manySteps():
             self.makeSteps(steps)

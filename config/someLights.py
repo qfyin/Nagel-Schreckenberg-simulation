@@ -8,8 +8,8 @@ updateFrame = 500
 
 seed = None
 
-lanes = 1
-length = 1100
+lanes = 3
+length = 400 # 1600m, 4m/block
 
 maxSpeed = 5
 maxLength = 10000
