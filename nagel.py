@@ -1,4 +1,10 @@
-import sys, pygame, simulation.road, simulation.speedLimits, random, importlib, config
+import sys
+import pygame
+import simulation.road
+import simulation.speedLimits
+import random
+import importlib
+import config
 from simulation.car import Car
 from representation import Representation
 from simulationManager import SimulationManager
@@ -18,9 +24,11 @@ clock = pygame.time.Clock()
 
 simulation.car.Car.slowDownProbability = config.slowDownProbability
 simulation.car.Car.laneChangeProbability = config.laneChangeProbability
-speedLimits = simulation.speedLimits.SpeedLimits(config.speedLimits, config.maxSpeed)
+speedLimits = simulation.speedLimits.SpeedLimits(
+    config.speedLimits, config.maxSpeed)
 road = simulation.road.Road(config.lanes, config.length, speedLimits)
-simulation = SimulationManager(road, config.trafficGenerator, config.updateFrame)
+simulation = SimulationManager(
+    road, config.trafficGenerator, config.updateFrame)
 representation = Representation(screen, road, simulation)
 
 while simulation.running:

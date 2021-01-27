@@ -1,5 +1,6 @@
 import pygame
 
+
 class SimulationManager:
     def __init__(self, road, trafficGenerator, updateFrame):
         self.road = road
@@ -42,22 +43,23 @@ class SimulationManager:
 
     def __exit(self):
         self.running = False
-    
+
     def __pauseSwitch(self):
         self.timeFactor, self.prevTimeFactor = self.prevTimeFactor, self.timeFactor
-    
+
     def __speedUp(self):
         self.timeFactor = min(8.0, self.timeFactor*2)
-    
+
     def __speedDown(self):
         self.timeFactor = max(1/8, self.timeFactor/2)
-    
+
     def __oneStepForward(self):
-        if self.isStopped(): self.makeStep()
-        else: print("Can't make step: simulation is running")
-    
+        if self.isStopped():
+            self.makeStep()
+        else:
+            print("Can't make step: simulation is running")
+
     def __manyStepsForward(self, steps):
         def manySteps():
             self.makeSteps(steps)
         return manySteps
-
