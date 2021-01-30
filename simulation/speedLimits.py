@@ -18,9 +18,11 @@ class SpeedLimits:
         return self.getLimit(pos) == 0
 
 class SpeedLimit:
+    @staticmethod
     def createObstacle(pos):
-        return SpeedLimit( range=(pos,pos), limit=0, ticks=0)
-    def __init__(self, range, limit, ticks, active=True):
+        return SpeedLimit(range = (pos, pos), limit = 0, ticks = 0)
+
+    def __init__(self, range, limit, ticks, active = True):
         self.lanes = (range[0][1], range[1][1])
         self.xPos = (range[0][0], range[1][0])
         self.speedLimit = limit

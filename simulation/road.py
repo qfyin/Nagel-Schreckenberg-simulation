@@ -36,6 +36,7 @@ class Road:
         self.updatedLanes = Road.generateEmptyLanes(
             self.getLanesCount(), self.getLength())
 
+    # ony called by unit test
     def addCar(self):
         if self.lanes[0][0] == None:
             self.lanes[0][0] = Car(self, (0, 0))
@@ -43,9 +44,11 @@ class Road:
         else:
             return False
 
+    # only called by unit test
     def pushCars(self, amount):
         return self.__pushCars(amount, [x for x in reversed(range(self.getLanesCount()))])
 
+    # called by SimpleTrafficGenerator.tryGenerate()
     def pushCarsRandomly(self, amount):
         lanes = [x for x in range(self.getLanesCount())]
         random.shuffle(lanes)
@@ -77,15 +80,17 @@ class Road:
             return self.getLength()  # heaven
         else:
             if self.lanes[pos[1]][pos[0]] == None and not self.speedLimits.shouldStop(pos):
-                return 1 + self.__distanceToNextThing((pos[0]+1, pos[1]))
+                return 1 + self.__distanceToNextThing((pos[0] + 1, pos[1]))
             else:
                 return 0
 
     def getMaxSpeedAt(self, pos):
         return min(self.getSpeedLimitAt(pos), self.distanceToNextThing(pos))
 
+    # find the car behind specified position (used by Car.__willingToChangeLane)
+    # logic: don't block other cars if you plan to change the lane
     def findPrevCar(self, pos):
-        if not self.inBounds(pos) or self.getSpeedLimitAt(pos) == 0:
+        if not self.inBounds(pos) or self.speedLimits.shouldStop(pos):
             return None
         else:
             if self.lanes[pos[1]][pos[0]] != None:
@@ -94,10 +99,10 @@ class Road:
                 return self.findPrevCar((pos[0] - 1, pos[1]))
 
     def possibleLaneChangeUp(self, pos):
-        return self.__possibleLaneChange(pos, pos[1]-1)
+        return self.__possibleLaneChange(pos, pos[1] - 1)
 
     def possibleLaneChangeDown(self, pos):
-        return self.__possibleLaneChange(pos, pos[1]+1)
+        return self.__possibleLaneChange(pos, pos[1] + 1)
 
     def __possibleLaneChange(self, pos, destLane):
         if not self.inBounds((0, destLane)) or self.lanes[destLane][pos[0]] != None:
@@ -116,6 +121,7 @@ class Road:
     def clearAt(self, pos):
         self.lanes[pos[1]][pos[0]] = None
 
+    # only called by unit test
     def placeObjects(self, entities):
         return all(self.placeObject(entity) for entity in entities)
 

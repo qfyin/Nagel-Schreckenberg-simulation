@@ -1,0 +1,1 @@
+python nagel.py config.someLights

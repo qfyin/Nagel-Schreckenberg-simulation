@@ -48,7 +48,7 @@ class Representation():
         invProgress = (1 - self.acc / self.updateFrame)*self.cellSize
         offset = (car.prevPos[0] - car.pos[0])*invProgress, (car.prevPos[1] - car.pos[1])*invProgress
         realPos = self.__getPosOnScreen((x+offset[0], y+offset[1]))
-        pygame.draw.rect(self.screen, self.colors[car.velocity], (realPos[0],realPos[1],self.cellSize,self.cellSize), 0)
+        pygame.draw.rect(self.screen, self.colors[car.velocity], (realPos[0] + 1, realPos[1] + self.cellSize // 4, self.cellSize - 2, self.cellSize // 2), 0)
 
     def __updateAcc(self, dt):
         self.acc += dt
