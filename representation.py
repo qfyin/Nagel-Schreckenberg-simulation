@@ -41,8 +41,14 @@ class Representation():
     def __drawCell(self, x, y, speedLimit):
         realPos = self.__getPosOnScreen((x,y))
         factor = 30 + speedLimit*30
-        pygame.draw.rect(self.screen, (factor, factor, factor), (realPos[0], realPos[1], self.cellSize, self.cellSize), 0)
-#        pygame.draw.rect(self.screen, (0, 30, 200), (realPos[0], realPos[1], self.cellSize, self.cellSize), 2)
+        pygame.draw.rect(self.screen,
+            (factor, factor, factor), # fill color in rgb
+            (realPos[0], realPos[1], self.cellSize, self.cellSize),
+            0)
+        #pygame.draw.rect(self.screen,
+        #    (0, 30, 200),
+        #    (realPos[0], realPos[1], self.cellSize, self.cellSize),
+        #    1)
 
     def __drawCar(self, car, x, y):
         invProgress = (1 - self.acc / self.updateFrame)*self.cellSize

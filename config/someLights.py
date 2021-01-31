@@ -6,7 +6,7 @@ size = width, heigth = 1280, 800
 # in miliseconds
 updateFrame = 500
 
-seed = None
+seed = None  # Current system time is used as the seed
 
 lanes = 3
 length = 330 # 1600m, 5m/block
